@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  todo:
+    container_name: todo
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file: .db_env
+    networks:
+      - todo_network
+ 
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    env_file: .db_env
+    ports:
+      - "3306:3306"
+    networks:
+      - todo_network
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+networks:
+  todo_network:
+    driver: bridge
+
+volumes:
+  mariadb-data: {}
