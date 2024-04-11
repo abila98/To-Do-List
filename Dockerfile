@@ -9,7 +9,7 @@ COPY package*.json .
 
 # Install dependencies
 RUN npm init -y
-RUN npm install express mysql body-parser
+RUN npm install express mysql body-parser ejs
 
 # Copy the rest of the application code to the working directory
 COPY . .
